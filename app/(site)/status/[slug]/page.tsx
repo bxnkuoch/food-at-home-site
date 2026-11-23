@@ -81,21 +81,6 @@ function MeetingCard({ m }: { m: Meeting }) {
   );
 }
 
-function Bars({ rows }: { rows: { label: React.ReactNode; key: string; value: number }[] }) {
-  const max = Math.max(...rows.map((r) => r.value), 1);
-  return (
-    <div className="bars">
-      {rows.map((r) => (
-        <div key={r.key} className="bar-row">
-          <span className="bar-label">{r.label}</span>
-          <span className="bar-track"><span className="bar-fill" style={{ width: `${(r.value / max) * 100}%` }} /></span>
-          <span className="bar-value">{fmtH(r.value)}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 const SECTIONS = [
   { status: "closed", title: "Closed", id: "closed" },
   { status: "open", title: "Open", id: "open" },
@@ -110,9 +95,8 @@ export default async function StatusPost({ params }: Props) {
   const tasks = post.tasks ?? [];
   const byStatus = (s: string) => tasks.filter((t) => t.status === s);
 
-  // Hours per person and per category, from each task's contributors
+  // Contributors and total hours, from each task's contributors
   const people = new Map<string, { m: Member; h: number }>();
-  const cats = new Map<string, number>();
   let total = 0;
   for (const t of tasks) {
     for (const c of t.contributors ?? []) {
@@ -120,15 +104,10 @@ export default async function StatusPost({ params }: Props) {
       const entry = people.get(c.member._id) ?? { m: c.member, h: 0 };
       entry.h += c.hours ?? 0;
       people.set(c.member._id, entry);
-      if (c.hours) {
-        total += c.hours;
-        const cat = t.category ?? "other";
-        cats.set(cat, (cats.get(cat) ?? 0) + c.hours);
-      }
+      if (c.hours) total += c.hours;
     }
   }
   const contributors = [...people.values()];
-  const loggers = contributors.filter((p) => p.h > 0).sort((a, b) => b.h - a.h);
 
   return (
     <div className="section">
@@ -156,19 +135,6 @@ export default async function StatusPost({ params }: Props) {
           <div className="stat"><b>{byStatus("open").length}</b><span>in progress</span></div>
           <div className="stat"><b>{byStatus("new").length}</b><span>new tasks</span></div>
         </div>
-
-        {total > 0 && (
-          <div className="breakdowns">
-            <div className="card">
-              <h3>Who worked on what</h3>
-              <Bars rows={loggers.map((p) => ({ key: p.m._id, value: p.h, label: <><Avatar m={p.m} size={20} /> {p.m.name}</> }))} />
-            </div>
-            <div className="card">
-              <h3>Where the time went</h3>
-              <Bars rows={[...cats.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => ({ key: k, value: v, label: CATEGORY_LABELS[k] ?? "Other" }))} />
-            </div>
-          </div>
-        )}
 
         <nav className="tabs">
           {SECTIONS.map((s) => <a key={s.id} href={`#${s.id}`}>{s.title} <span className="count">{byStatus(s.status).length}</span></a>)}
