@@ -149,4 +149,5 @@ h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
 .owners { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); }
 .owner { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; }
 .brand-logo { height: 32px; width: auto; object-fit: contain; }
-.brand-logo.wide { max-width: 200px; }
+.brand-logo.wide { height: 48px; max-width: 220px; }
+.site-footer .brand-logo.wide { height: 72px; }

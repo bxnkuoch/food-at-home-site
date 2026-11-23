@@ -7,7 +7,7 @@ function Brand({ s }: { s: Settings }) {
   if (!s.logo?.asset) return <><span className="brand-dot" aria-hidden />{s.appName}</>;
   return (
     <>
-      <Image className={s.logoHasName ? "brand-logo wide" : "brand-logo"} src={urlFor(s.logo).height(96).url()} alt={s.logoHasName ? s.appName! : ""} width={s.logoHasName ? 160 : 32} height={32} priority />
+      <Image className={s.logoHasName ? "brand-logo wide" : "brand-logo"} src={urlFor(s.logo).height(160).url()} alt={s.logoHasName ? s.appName! : ""} width={s.logoHasName ? 160 : 32} height={32} priority />
       {!s.logoHasName && s.appName}
     </>
   );
