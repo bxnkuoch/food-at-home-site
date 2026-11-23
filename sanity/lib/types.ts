@@ -29,7 +29,7 @@ export interface Privacy {
   sections?: { _key: string; heading: string; body?: RichText }[];
 }
 export interface Settings {
-  appName?: string; teamName?: string; tagline?: string; contactEmail?: string; instagramUrl?: string;
+  appName?: string; teamName?: string; tagline?: string; logo?: SanityImage; logoHasName?: boolean; contactEmail?: string; instagramUrl?: string;
   heroTitle?: string; heroText?: string; heroImage?: SanityImage;
   features?: { _key: string; title: string; description?: string; image?: SanityImage }[];
   testflightUrl?: string; appStoreUrl?: string; playStoreUrl?: string; downloadNote?: string;

@@ -1,11 +1,23 @@
+import Image from "next/image";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 import type { Settings } from "@/sanity/lib/types";
+
+function Brand({ s }: { s: Settings }) {
+  if (!s.logo?.asset) return <><span className="brand-dot" aria-hidden />{s.appName}</>;
+  return (
+    <>
+      <Image className={s.logoHasName ? "brand-logo wide" : "brand-logo"} src={urlFor(s.logo).height(96).url()} alt={s.logoHasName ? s.appName! : ""} width={s.logoHasName ? 160 : 32} height={32} priority />
+      {!s.logoHasName && s.appName}
+    </>
+  );
+}
 
 export function Header({ s }: { s: Settings }) {
   return (
     <header className="site-header">
       <div className="wrap header-inner">
-        <Link href="/" className="brand"><span className="brand-dot" aria-hidden />{s.appName}</Link>
+        <Link href="/" className="brand"><Brand s={s} /></Link>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" aria-label="Open menu" />
         <label htmlFor="nav-toggle" className="nav-burger" aria-hidden>☰</label>
         <nav className="nav">
@@ -26,7 +38,7 @@ export function Footer({ s }: { s: Settings }) {
     <footer className="site-footer">
       <div className="wrap footer-grid">
         <div>
-          <div className="brand"><span className="brand-dot" aria-hidden />{s.appName}</div>
+          <div className="brand"><Brand s={s} /></div>
           <p className="muted">{s.tagline}</p>
           <p className="muted small">A Drexel senior design project by {s.teamName}.</p>
         </div>
