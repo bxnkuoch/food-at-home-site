@@ -1,31 +1,28 @@
 :root {
-  --bg: #fffaf3;
+  /* Palette from the old Framer site (cronch.framer.website). Always light. */
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-alt: #f4efe4;
-  --ink: #1f2a1f;
-  --muted: #5f6b5c;
-  --line: #e6dfd0;
-  --brand: #2f7d4f;
+  --surface-alt: #fffbf0;   /* Framer footer cream */
+  --ink: #000000;
+  --muted: #666666;         /* Framer body/list text */
+  --line: #ebebeb;          /* Framer divider rgba(0,0,0,0.08) */
+  --brand: #0a7f5c;         /* Framer green #0fa376, darkened so text passes 4.5:1 */
   --brand-ink: #ffffff;
-  --accent: #ff9f6b;
-  --warn: #d9622b;
-  --ok: #2f7d4f;
+  --accent: #b388eb;        /* Framer purple (buttons, brand token) */
+  --warn: #b85200;          /* Framer orange #ff7200, darkened for text contrast */
+  --ok: #0a7f5c;
   --radius: 18px;
-  --shadow: 0 1px 2px rgba(31, 42, 31, 0.06), 0 8px 24px rgba(31, 42, 31, 0.06);
-  --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141a15; --surface: #1c241d; --surface-alt: #182019; --ink: #eef3ea; --muted: #a6b3a2;
-    --line: #2c372d; --brand: #5cc58a; --brand-ink: #0d1a11; --accent: #ffb48a; --warn: #ff9a66; --ok: #5cc58a;
-  }
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --font: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-montserrat), var(--font);
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.6; }
 a { color: var(--brand); }
 img { max-width: 100%; height: auto; }
-h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.01em; }
+h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.01em; }
 h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0.4em 0 0.3em; }
 h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }

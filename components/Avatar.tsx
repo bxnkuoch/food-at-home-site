@@ -2,7 +2,8 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import type { Member } from "@/sanity/lib/types";
 
-const PALETTE = ["#2f7d4f", "#ff9f6b", "#7a5cc4", "#d9622b", "#3b8ea5", "#c4527a", "#8a9a2b", "#5c6bc0"];
+// Framer team-card colors, darkened where needed so white initials pass 4.5:1
+const PALETTE = ["#0c7aca", "#bd4b97", "#c15600", "#008840", "#937101", "#7c7560", "#3f10cc", "#9241e8"];
 
 export function Avatar({ m, size = 32 }: { m: Member; size?: number }) {
   const color = PALETTE[[...m.name].reduce((a, c) => a + c.charCodeAt(0), 0) % PALETTE.length];
