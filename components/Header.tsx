@@ -4,7 +4,10 @@ import { urlFor } from "@/sanity/lib/image";
 import type { Settings } from "@/sanity/lib/types";
 
 function Brand({ s }: { s: Settings }) {
-  if (!s.logo?.asset) return <><span className="brand-dot" aria-hidden />{s.appName}</>;
+  // Default: the Food @home wordmark in /public. A logo set in Site Settings overrides it.
+  if (!s.logo?.asset) {
+    return <Image className="brand-logo wide" src="/logo.svg" alt={s.appName!} width={303} height={166} priority unoptimized />;
+  }
   return (
     <>
       <Image className={s.logoHasName ? "brand-logo wide" : "brand-logo"} src={urlFor(s.logo).height(160).url()} alt={s.logoHasName ? s.appName! : ""} width={s.logoHasName ? 160 : 32} height={32} priority />
